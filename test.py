@@ -3,6 +3,8 @@ import pandas as pd
 from matplotlib import pyplot
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression
+from sklearn.metrics import mean_squared_error
+
 
 data= pd.read_csv('Dataset.csv', header='infer', index_col=False, dtype=float)
 
@@ -17,15 +19,11 @@ X = data
 
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.2)
 
-#model = LinearRegression()
+model = LinearRegression()
+model.fit(X_train, y_train)
 
-#model.fit()
-print(data.shape)
-print(y.shape)
+predictions = model.predict(X_test)
+print("Mean Squared Model Error:")
+print(mean_squared_error(predictions, y_test))
 
-print(X_train.shape)
-print(X_test.shape)
-
-print(y_train.shape)
-print(y_test.shape)
 #pyplot.show()
