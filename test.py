@@ -22,8 +22,14 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.2)
 model = LinearRegression()
 model.fit(X_train, y_train)
 
+
 predictions = model.predict(X_test)
 print("Mean Squared Model Error:")
 print(mean_squared_error(predictions, y_test))
 
+m = model.coef_[0]
+b = model.intercept_
+
+print("Equation: ")
+print(' y = {0} * x + {1}'.format(m, b))
 #pyplot.show()
