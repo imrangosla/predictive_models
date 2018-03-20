@@ -6,6 +6,7 @@ import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.model_selection import cross_val_score
 from sklearn.linear_model import LinearRegression
+from sklearn import linear_model
 from sklearn import metrics
 
 # read CSV (comma separated value) file and save the results
@@ -105,3 +106,17 @@ print('Without Sv:',np.sqrt(-cross_val_score(linreg, X, y, cv=10, scoring='neg_m
 # Conclusion
 print('///////////////////////MODEL COMPARISON//////////////////////')
 print(' Linear Regression model without removing any of the features \n results in a more accurate model because it minimizes the root mean squared error \n (using cross validation reduces the variance associated with a single trial of train/test split)')
+
+feature_cols = ['Tm','Pr','Th','Sv']
+X = data[feature_cols]
+y = data.Idx
+clf = linear_model.LassoLars(alpha=.1)
+clf.fit(X,y)
+print('////////////////LARS LASSO////////////////')
+print('Intercept:',clf.intercept_)
+print('Coefficients:',clf.coef_)
+clf = linear_model.RidgeCV(alphas=[0.1, 1.0, 10.0], cv=10)
+clf.fit(X,y)
+print('////////////////RIDGE REGRESSION////////////////')
+print('Intercept:',clf.intercept_)
+print('Coefficients:',clf.coef_)
